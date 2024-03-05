@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Customer } from 'src/app/model/customer.model';
 import { CartService } from 'src/app/services/cart.service';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, FormBuilder } from '@angular/forms';
 
 @Component({
   selector: 'app-customer',
@@ -16,7 +16,11 @@ import { FormControl, FormGroup } from '@angular/forms';
  */
 export class CustomerComponent implements OnInit {
   myForm: FormGroup;
-  constructor(public cartService: CartService, private router: Router) {
+  constructor(
+    private formBuilder: FormBuilder,
+    private cartService: CartService,
+    private router: Router
+  ) {
     let customer = this.cartService.getCustomer();
     this.myForm = new FormGroup({
       name: new FormControl(customer.name),
