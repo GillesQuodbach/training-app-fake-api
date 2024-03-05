@@ -23,6 +23,6 @@ export class AuthenticateService {
   isAdmin() {
     // TODO Récupérer les champs email et password du login
     console.log('admin is read');
-    return false;
+    return true;
   }
 }
