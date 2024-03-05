@@ -1,27 +1,37 @@
-
 <div class="container">
   <ng-container *ngIf="cart">
-        <table class="table table-sm">
-          <thead>
-            <tr>
-              <th>ID</th><th>Name</th><th>Quantity</th><th>Price</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr *ngFor="let training of cart">
-              <td>{{training.id}}</td>
-              <td>{{training.name}}</td>
-              <td>{{training.quantity}}</td>
-              <td>{{training.price}}</td>  
-              <td class="col-sm-1"> <a class="btn btn-danger btn-sm" (click)="onRemoveFromCart(training)"> Supprimer </a> </td>
-            </tr>
+    <table class="table table-sm">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Name</th>
+          <th>Quantity</th>
+          <th>Price</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let p of cartService.getCart()">
+          <td>{{ p.id }}</td>
+          <td>{{ p.name }}</td>
+          <td>{{ p.quantity }}</td>
+          <td>{{ p.price | number : "0.2" }}</td>
+          <td class="col-sm-1">
+            <a class="btn btn-danger btn-sm" (click)="onRemoveFromCart(p)">
+              Supprimer
+            </a>
+          </td>
+        </tr>
 
-            <tr>
-              <td colspan="3">Total</td>
-              <td>{{amount}}</td>
-            </tr>
-          </tbody>
-        </table>
-        <button class="btn btn-success" (click)="onNewOrder()">Commander</button>    
-    </ng-container>
+        <tr>
+          <td colspan="3">Total</td>
+          <td>{{ cartService.getAmount() | currency : "EUR" }}</td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="form-group">
+      <label>Date de la commande : </label>
+      <label>{{ dateOrder | date : "MM/dd/yy" }}</label>
+    </div>
+    <button class="btn btn-success" (click)="onNewOrder()">Commander</button>
+  </ng-container>
 </div>
