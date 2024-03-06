@@ -1,19 +1,13 @@
 <div class="container">
   <div class="wrapper">
-    <div class="logo">
-      <!-- <img
-        src="https://www.freepnglogos.com/uploads/twitter-logo-png/twitter-bird-symbols-png-logo-0.png"
-        alt=""
-      /> -->
-    </div>
     <div class="text-center mt-4 name">Training App</div>
     <form
       [formGroup]="loginForm"
       class="p-3 mt-3"
       (ngSubmit)="onFindUser(loginForm)"
+      *ngIf="this.authService.getConnection() === false"
     >
-      <div class="form-group form-field d-flex align-items-center">
-        <span class="far fa-user"></span>
+      <div class="form-group d-flex align-items-center">
         <input
           class="form-control"
           type="email"
@@ -22,8 +16,8 @@
           placeholder="userEmail"
         />
       </div>
-      <div class="form-group form-field d-flex align-items-center">
-        <span class="fas fa-key"></span>
+
+      <div class="form-group d-flex align-items-center">
         <input
           class="form-control"
           type="password"
@@ -32,12 +26,13 @@
           placeholder="Password"
         />
       </div>
-      <button type="submit" [disabled]="!loginForm.value" class="btn mt-3">
-        Login
-      </button>
-      <button class="btn bg-danger mt-3" (click)="onDeconnect()">
-        Déconnexion
-      </button>
+      <button [disabled]="!loginForm.value" class="btn mt-3">Login</button>
     </form>
+    <div class="text-center" *ngIf="this.authService.getConnection() === true">
+      Bienvenue <span>{{ this.authService.getUser().email }}</span>
+    </div>
+    <button class="btn bg-danger mt-3" (click)="onDeconnect()">
+      Déconnexion
+    </button>
   </div>
 </div>

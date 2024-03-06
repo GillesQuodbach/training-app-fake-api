@@ -20,7 +20,7 @@ export class AuthenticateService {
       roles: ['USER'],
     },
   ];
-
+  public userConnected: boolean = false;
   getUser() {
     return this.user;
   }
@@ -33,16 +33,22 @@ export class AuthenticateService {
     this.user = user;
   }
 
+  getConnection() {
+    return this.userConnected;
+  }
+
   isAdmin() {
     const registredUser = this.users.find(
       (item) =>
         item.email === this.user.email && item.password === this.user.password
     );
     if (registredUser && registredUser.roles.includes('ADMIN_USER')) {
+      this.userConnected = true;
       return true;
-    } else {
-      return false;
+    } else if (registredUser && registredUser.roles.includes('USER')) {
+      this.userConnected = true;
     }
+    return false;
   }
 
   redirectIfAdmin() {
@@ -52,6 +58,7 @@ export class AuthenticateService {
   }
 
   deconnectUser() {
+    this.userConnected = false;
     this.user = new User('', '', '');
     this.router.navigateByUrl('/');
   }

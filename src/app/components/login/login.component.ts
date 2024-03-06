@@ -17,12 +17,14 @@ import {
 export class LoginComponent implements OnInit {
   loginForm: FormGroup;
   user: User;
+  userConnected: boolean = false;
   constructor(
     public authService: AuthenticateService,
     private router: Router,
     private formBuilder: FormBuilder
   ) {
     this.user = this.authService.getUser();
+    this.userConnected = this.authService.getConnection();
     this.loginForm = new FormGroup({
       email: new FormControl(this.user.email),
       password: new FormControl(this.user.password),

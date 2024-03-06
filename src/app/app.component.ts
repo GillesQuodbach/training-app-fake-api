@@ -7,7 +7,10 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css'],
 })
 export class AppComponent {
-  constructor(public authService: AuthenticateService) {}
+  userConnected: boolean = false;
+  constructor(public authService: AuthenticateService) {
+    this.userConnected = this.authService.getConnection();
+  }
 
   title = 'trainings-front-app';
 }

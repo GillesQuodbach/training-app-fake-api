@@ -14,7 +14,21 @@
       <a class="nav-link" href="#" routerLink="/admin">Administration</a>
     </li>
     <li class="nav-item">
-      <a class="nav-link" href="#" routerLink="/login">Login</a>
+      <a
+        *ngIf="this.authService.getConnection() === false"
+        class="nav-link"
+        href="#"
+        routerLink="/login"
+        >Login</a
+      >
+      <a
+        *ngIf="this.authService.getConnection() === true"
+        class="nav-link"
+        href="#"
+        routerLink="/login"
+        (click)="this.authService.deconnectUser()"
+        >Déconnexion</a
+      >
     </li>
   </ul>
 </nav>
