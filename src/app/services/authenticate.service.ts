@@ -12,7 +12,7 @@ export class AuthenticateService {
     {
       email: 'elbab@gmail.com',
       password: '1234',
-      roles: ['ADMIN_USER'],
+      roles: ['ADMIN', 'USER'],
     },
     {
       email: 'hugo@gmail.com',
@@ -42,7 +42,7 @@ export class AuthenticateService {
       (item) =>
         item.email === this.user.email && item.password === this.user.password
     );
-    if (registredUser && registredUser.roles.includes('ADMIN_USER')) {
+    if (registredUser && registredUser.roles.includes('ADMIN')) {
       this.userConnected = true;
       return true;
     } else if (registredUser && registredUser.roles.includes('USER')) {
