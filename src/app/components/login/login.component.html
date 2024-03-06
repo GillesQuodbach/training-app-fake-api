@@ -32,7 +32,9 @@
           placeholder="Password"
         />
       </div>
-      <button class="btn mt-3">Login</button>
+      <button type="submit" [disabled]="!loginForm.value" class="btn mt-3">
+        Login
+      </button>
       <button class="btn bg-danger mt-3" (click)="onDeconnect()">
         Déconnexion
       </button>
