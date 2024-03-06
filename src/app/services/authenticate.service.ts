@@ -21,9 +21,17 @@ export class AuthenticateService {
     },
   ];
   public userConnected: boolean = false;
-  getUser() {
+  // gestion localStorage
+  saveUser(user: User) {
+    localStorage.setItem('user', JSON.stringify(user));
+  }
+
+  getUser(): User {
+    let user = localStorage.getItem('user');
+    if (user) return JSON.parse(user);
     return this.user;
   }
+
   getUsers() {
     return this.users;
   }
@@ -61,5 +69,6 @@ export class AuthenticateService {
     this.userConnected = false;
     this.user = new User('', '', '');
     this.router.navigateByUrl('/');
+    localStorage.clear();
   }
 }
