@@ -6,7 +6,7 @@ import { Router } from '@angular/router';
   providedIn: 'root',
 })
 export class AuthenticateService {
-  constructor(private router: Router) {}
+  constructor(private router: Router) { }
   private user: User = new User('', '', 'unknown');
   private users: User[] = [
     {
@@ -52,9 +52,13 @@ export class AuthenticateService {
     );
     if (registredUser && registredUser.roles.includes('ADMIN')) {
       this.userConnected = true;
+      this.user.roles = ['ADMIN']
+      this.saveUser(this.user)
       return true;
     } else if (registredUser && registredUser.roles.includes('USER')) {
       this.userConnected = true;
+      this.user.roles = ['USER']
+      this.saveUser(this.user)
     }
     return false;
   }
