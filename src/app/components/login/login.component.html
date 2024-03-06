@@ -1,25 +1,35 @@
 <div class="container">
-  <form>
-    <!-- Email input -->
-    <div class="form-outline mb-4">
-      <input type="email" id="form2Example1" class="form-control" />
-      <label class="form-label" for="form2Example1">Email address</label>
+  <div class="wrapper">
+    <div class="logo">
+      <img
+        src="https://www.freepnglogos.com/uploads/twitter-logo-png/twitter-bird-symbols-png-logo-0.png"
+        alt=""
+      />
     </div>
-
-    <!-- Password input -->
-    <div class="form-outline mb-4">
-      <input type="password" id="form2Example2" class="form-control" />
-      <label class="form-label" for="form2Example2">Password</label>
+    <div class="text-center mt-4 name">Twitter</div>
+    <form class="p-3 mt-3">
+      <div class="form-field d-flex align-items-center">
+        <span class="far fa-user"></span>
+        <input
+          type="text"
+          name="userName"
+          id="userName"
+          placeholder="Username"
+        />
+      </div>
+      <div class="form-field d-flex align-items-center">
+        <span class="fas fa-key"></span>
+        <input
+          type="password"
+          name="password"
+          id="pwd"
+          placeholder="Password"
+        />
+      </div>
+      <button class="btn mt-3">Login</button>
+    </form>
+    <div class="text-center fs-6">
+      <a href="#">Forget password?</a> or <a href="#">Sign up</a>
     </div>
-
-    <!-- 2 column grid layout for inline styling -->
-    <div class="row mb-4">
-      <div class="col d-flex justify-content-center"></div>
-    </div>
-
-    <!-- Submit button -->
-    <button type="button" class="btn btn-primary btn-block mb-4">
-      Sign in
-    </button>
-  </form>
+  </div>
 </div>

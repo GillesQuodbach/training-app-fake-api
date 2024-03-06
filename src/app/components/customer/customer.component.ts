@@ -2,7 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Customer } from 'src/app/model/customer.model';
 import { CartService } from 'src/app/services/cart.service';
-import { FormControl, FormGroup, FormBuilder } from '@angular/forms';
+import {
+  FormControl,
+  FormGroup,
+  FormBuilder,
+  Validators,
+} from '@angular/forms';
 
 @Component({
   selector: 'app-customer',
@@ -16,22 +21,40 @@ import { FormControl, FormGroup, FormBuilder } from '@angular/forms';
  */
 export class CustomerComponent implements OnInit {
   myForm: FormGroup;
+  customer: Customer;
   constructor(
-    private formBuilder: FormBuilder,
-    private cartService: CartService,
-    private router: Router
+    public cartService: CartService,
+    private router: Router,
+    private formBuilder: FormBuilder
   ) {
-    let customer = this.cartService.getCustomer();
+    this.customer = this.cartService.getCustomer();
     this.myForm = new FormGroup({
-      name: new FormControl(customer.name),
-      firstName: new FormControl(customer.firstName),
-      address: new FormControl(customer.address),
-      phone: new FormControl(customer.phone),
-      email: new FormControl(customer.email),
+      name: new FormControl(this.customer.name),
+      firstName: new FormControl(this.customer.firstName),
+      address: new FormControl(this.customer.address),
+      phone: new FormControl(this.customer.phone),
+      email: new FormControl(this.customer.email),
     });
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.myForm = this.formBuilder.group({
+      name: [this.customer.name, Validators.required],
+      firstName: [this.customer.firstName, Validators.required],
+      address: [
+        this.customer.address,
+        [Validators.required, Validators.minLength(25)],
+      ],
+      phone: [
+        this.customer.phone,
+        [Validators.required, Validators.maxLength(10)],
+      ],
+      email: [
+        this.customer.email,
+        [Validators.required, Validators.pattern('[a-z0-9.@]*')],
+      ],
+    });
+  }
 
   /**
    * Méthode de validation du formulaire client en le sauvegardant dans le service

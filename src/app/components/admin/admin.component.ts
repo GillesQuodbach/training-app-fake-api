@@ -58,8 +58,4 @@ export class AdminComponent implements OnInit {
       this.router.navigateByUrl('cart');
     }
   }
-
-  doAlert() {
-    console.log('boutton cliqué');
-  }
 }
