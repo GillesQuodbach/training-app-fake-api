@@ -1,11 +1,12 @@
 import { Injectable } from '@angular/core';
 import { User } from '../model/user.model';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthenticateService {
-  constructor() {}
+  constructor(private router: Router) {}
   private user: User = new User('', '', 'unknown');
   private users: User[] = [
     {
@@ -29,11 +30,24 @@ export class AuthenticateService {
 
   findUser(user: User) {
     console.log('user from authService', user);
+    this.user = user;
   }
 
   isAdmin() {
-    // TODO Récupérer les champs email et password du login
-    // console.log('admin is read');
-    return true;
+    const registredUser = this.users.find(
+      (item) =>
+        item.email === this.user.email && item.password === this.user.password
+    );
+    if (registredUser && registredUser.roles.includes('ADMIN_USER')) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  redirectIfAdmin() {
+    if (this.isAdmin()) {
+      this.router.navigateByUrl('/admin');
+    }
   }
 }

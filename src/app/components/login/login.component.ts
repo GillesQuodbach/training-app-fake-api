@@ -44,22 +44,7 @@ export class LoginComponent implements OnInit {
       this.authService.findUser(
         new User(form.value.email, form.value.password, 'unknown')
       );
-      // this.router.navigateByUrl('order');
     }
+    this.authService.redirectIfAdmin();
   }
-  // }
-  // onSaveUser(form: FormGroup) {
-  //   if (form.valid) {
-  //     this.cartService.saveCustomer(
-  //       new Customer(
-  //         form.value.name,
-  //         form.value.firstName,
-  //         form.value.address,
-  //         form.value.phone,
-  //         form.value.email
-  //       )
-  //     );
-  //     this.router.navigateByUrl('order');
-  //   }
-  // }
 }
