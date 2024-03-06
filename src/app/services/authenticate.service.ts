@@ -50,4 +50,9 @@ export class AuthenticateService {
       this.router.navigateByUrl('/admin');
     }
   }
+
+  deconnectUser() {
+    this.user = new User('', '', '');
+    this.router.navigateByUrl('/');
+  }
 }
