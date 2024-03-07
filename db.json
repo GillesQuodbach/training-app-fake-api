@@ -42,5 +42,17 @@
       "price": 1200,
       "quantity": 1
     }
+  ],
+  "users": [
+    {
+      "email": "elbab@gmail.com",
+      "password": 1234,
+      "roles": " ['ADMIN', 'USER']"
+    },
+    {
+      "email": "hugo@gmail.com",
+      "password": 1234,
+      "roles": "['USER']"
+    }
   ]
 }

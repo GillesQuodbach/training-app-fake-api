@@ -8,6 +8,7 @@ import {
   FormBuilder,
   Validators,
 } from '@angular/forms';
+import { ApiService } from 'src/app/services/api.service';
 
 @Component({
   selector: 'app-login',
@@ -15,37 +16,59 @@ import {
   styleUrls: ['./login.component.css'],
 })
 export class LoginComponent implements OnInit {
-  loginForm: FormGroup;
-  user: User;
-  userConnected: boolean = false;
+  user: User = this.authService.getUser();
+  loginForm = this.fb.group({
+    email: ['', [Validators.required, Validators.email]],
+    password: ['', [Validators.required]],
+  });
+
   constructor(
-    public authService: AuthenticateService,
-    private router: Router,
-    private formBuilder: FormBuilder
-  ) {
-    this.user = this.authService.getUser();
-    this.userConnected = this.authService.getConnection();
-    this.loginForm = this.formBuilder.group({
-      email: [
-        this.user.email,
-        [Validators.required, Validators.pattern('[a-z0-9.@]*')],
-      ],
-      password: [this.user.password, [Validators.required]],
-    });
-  }
+    private fb: FormBuilder,
+    private authService: AuthenticateService,
+    private apiService: ApiService,
+    private router: Router
+  ) {}
 
   ngOnInit(): void {}
 
-  onFindUser(form: FormGroup) {
-    if (form.valid) {
-      this.authService.findUser(
-        new User(form.value.email, form.value.password, 'unknown')
+  loginUser() {
+    console.log(this.loginForm.value);
+    const { email, password } = this.loginForm.value;
+    this.apiService.getUserByEmail(email as string).subscribe((response) => {
+      console.log('response', response);
+      this.user = new User(
+        response[0].email,
+        response[0].password,
+        response[0].roles
       );
-    }
-    this.authService.redirectIfAdmin();
-  }
+      this.authService.upDateUser(
+        response[0].email,
+        response[0].password,
+        response[0].roles
+      );
+      if (
+        response.length > 0 &&
+        response[0].password == password &&
+        response[0].roles.includes('ADMIN')
+      ) {
+        console.log('everything match');
+        console.log('user is admin');
+        this.authService.isAdmin();
+        this.authService.userConnected = true;
 
-  onDeconnect() {
-    this.authService.deconnectUser();
+        this.router.navigateByUrl('/admin');
+      } else if (
+        response.length > 0 &&
+        response[0].password == password &&
+        response[0].roles.includes('USER')
+      ) {
+        console.log('everything match');
+        console.log('user is user');
+        this.authService.userConnected = true;
+        this.router.navigateByUrl('/');
+      } else {
+        alert('wrong email or password');
+      }
+    });
   }
 }

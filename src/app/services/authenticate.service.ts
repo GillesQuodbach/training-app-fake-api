@@ -2,26 +2,15 @@ import { Injectable } from '@angular/core';
 import { User } from '../model/user.model';
 import { Router } from '@angular/router';
 import * as CryptoJS from 'crypto-js';
+import { ApiService } from './api.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthenticateService {
-  constructor(private router: Router) {}
+  constructor(private router: Router, private apiService: ApiService) {}
   key = '123';
-  private user: User = new User('', '', 'unknown');
-  private users: User[] = [
-    {
-      email: 'elbab@gmail.com',
-      password: '1234',
-      roles: ['ADMIN', 'USER'],
-    },
-    {
-      email: 'hugo@gmail.com',
-      password: '1234',
-      roles: ['USER'],
-    },
-  ];
+  private user: User = new User('', '', ['']);
 
   private encrypt(txt: string): string {
     return CryptoJS.AES.encrypt(txt, this.key).toString();
@@ -42,18 +31,18 @@ export class AuthenticateService {
     let user = localStorage.getItem('user');
     if (user) {
       let decryptedUser = this.decrypt(user);
-      user = JSON.parse(decryptedUser);
+      this.user = JSON.parse(decryptedUser);
     }
-    return new User('', '', '');
+    return new User('', '', ['']);
+  }
+
+  upDateUser(email: string, password: string, roles: string[]) {
+    this.user = new User(email, password, roles);
+    this.saveUser(this.user);
   }
 
   getUsers() {
-    return this.users;
-  }
-
-  findUser(user: User) {
-    console.log('user from authService', user);
-    this.user = user;
+    return this.apiService.getUsers;
   }
 
   getConnection() {
@@ -61,33 +50,11 @@ export class AuthenticateService {
   }
 
   isAdmin() {
-    const registredUser = this.users.find(
-      (item) =>
-        item.email === this.user.email && item.password === this.user.password
-    );
-    if (registredUser && registredUser.roles.includes('ADMIN')) {
-      this.userConnected = true;
-      this.user.roles = ['ADMIN'];
-      this.saveUser(this.user);
-      return true;
-    } else if (registredUser && registredUser.roles.includes('USER')) {
-      this.userConnected = true;
-      this.user.roles = ['USER'];
-      this.saveUser(this.user);
-    }
-    return false;
+    return this.user.roles.includes('ADMIN');
   }
 
-  redirectIfAdmin() {
-    if (this.isAdmin()) {
-      this.router.navigateByUrl('/admin');
-    }
-  }
-
-  deconnectUser() {
-    this.userConnected = false;
-    this.user = new User('', '', '');
-    this.router.navigateByUrl('/');
+  userDeconnection() {
     localStorage.clear();
+    this.userConnected = false;
   }
 }

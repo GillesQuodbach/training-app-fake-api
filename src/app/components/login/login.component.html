@@ -1,38 +1,103 @@
-<div class="container">
-  <div class="wrapper">
-    <div class="text-center mt-4 name">Training App</div>
-    <form
-      [formGroup]="loginForm"
-      class="p-3 mt-3"
-      (ngSubmit)="onFindUser(loginForm)"
-      *ngIf="this.authService.getConnection() === false"
-    >
-      <div class="form-group d-flex align-items-center">
-        <input
-          class="form-control"
-          type="email"
-          formControlName="email"
-          id="userEmail"
-          placeholder="userEmail"
-        />
-      </div>
-
-      <div class="form-group d-flex align-items-center">
-        <input
-          class="form-control"
-          type="password"
-          formControlName="password"
-          id="password"
-          placeholder="Password"
-        />
-      </div>
-      <button [disabled]="!loginForm.value" class="btn mt-3">Login</button>
-    </form>
-    <div class="text-center" *ngIf="this.authService.getConnection() === true">
-      Bienvenue <span>{{ this.authService.getUser().email }}</span>
+<!-- <form [formGroup]="loginForm" (ngSubmit)="loginUser()">
+  <div header="Login" [style]="{ width: '360px' }">
+    <div class="field">
+      <label for="email">Email</label>
+      <input
+        type="text"
+        pInputText
+        formControlName="email"
+        class="w-full"
+        placeholder="Type your mail"
+      />
+      <small
+        *ngIf="
+          loginForm.controls['email'].invalid &&
+          (loginForm.controls['email'].dirty ||
+            loginForm.controls['email'].touched)
+        "
+      >
+        <div>Email invalid</div>
+      </small>
     </div>
-    <button class="btn bg-danger mt-3" (click)="onDeconnect()">
-      Déconnexion
+    <div class="field">
+      <label for="password">password</label>
+      <input
+        type="password"
+        pInputText
+        formControlName="password"
+        class="w-full"
+        placeholder="Type your password"
+      />
+      <small
+        *ngIf="
+          loginForm.controls['password'].invalid &&
+          (loginForm.controls['password'].dirty ||
+            loginForm.controls['password'].touched)
+        "
+      >
+        <div>Password invalid</div>
+      </small>
+    </div>
+    <button type="submit" label="login" [disabled]="loginForm.invalid">
+      Login
     </button>
+  </div>
+</form> -->
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+      <div class="card">
+        <div class="card-header">Connexion</div>
+        <div class="card-body">
+          <form [formGroup]="loginForm" (ngSubmit)="loginUser()">
+            <div class="mb-3">
+              <label for="email" class="form-label">Adresse e-mail</label>
+              <input
+                formControlName="email"
+                type="email"
+                class="form-control"
+                id="email"
+                placeholder="Entrez votre adresse e-mail"
+              />
+              <small
+                *ngIf="
+                  loginForm.controls['email'].invalid &&
+                  (loginForm.controls['email'].dirty ||
+                    loginForm.controls['email'].touched)
+                "
+              >
+                <div>Email invalid</div>
+              </small>
+            </div>
+            <div class="mb-3">
+              <label for="password" class="form-label">Mot de passe</label>
+              <input
+                formControlName="password"
+                type="password"
+                class="form-control"
+                id="password"
+                placeholder="Entrez votre mot de passe"
+              />
+              <small
+                *ngIf="
+                  loginForm.controls['password'].invalid &&
+                  (loginForm.controls['password'].dirty ||
+                    loginForm.controls['password'].touched)
+                "
+              >
+                <div>Password invalid</div>
+              </small>
+            </div>
+            <button
+              type="submit"
+              class="btn btn-primary"
+              [disabled]="loginForm.invalid"
+            >
+              Connexion
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
   </div>
 </div>

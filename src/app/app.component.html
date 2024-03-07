@@ -10,8 +10,14 @@
     <li class="nav-item">
       <a class="nav-link" href="#" routerLink="/cart">Contenu du Panier</a>
     </li>
-    <li *ngIf="this.authService.isAdmin()" class="nav-item">
-      <a class="nav-link" href="#" routerLink="/admin">Administration</a>
+    <li class="nav-item">
+      <a
+        *ngIf="this.authService.isAdmin()"
+        class="nav-link"
+        href="#"
+        routerLink="/admin"
+        >Administration</a
+      >
     </li>
     <li class="nav-item">
       <a
@@ -26,7 +32,7 @@
         class="nav-link"
         href="#"
         routerLink="/login"
-        (click)="this.authService.deconnectUser()"
+        (click)="this.authService.userDeconnection()"
         >Déconnexion</a
       >
     </li>
