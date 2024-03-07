@@ -28,16 +28,6 @@ export class CustomerComponent implements OnInit {
     private formBuilder: FormBuilder
   ) {
     this.customer = this.cartService.getCustomer();
-    this.myForm = new FormGroup({
-      name: new FormControl(this.customer.name),
-      firstName: new FormControl(this.customer.firstName),
-      address: new FormControl(this.customer.address),
-      phone: new FormControl(this.customer.phone),
-      email: new FormControl(this.customer.email),
-    });
-  }
-
-  ngOnInit(): void {
     this.myForm = this.formBuilder.group({
       name: [this.customer.name, Validators.required],
       firstName: [this.customer.firstName, Validators.required],
@@ -55,6 +45,8 @@ export class CustomerComponent implements OnInit {
       ],
     });
   }
+
+  ngOnInit(): void {}
 
   /**
    * Méthode de validation du formulaire client en le sauvegardant dans le service

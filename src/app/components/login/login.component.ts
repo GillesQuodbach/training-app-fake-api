@@ -24,14 +24,6 @@ export class LoginComponent implements OnInit {
     private formBuilder: FormBuilder
   ) {
     this.user = this.authService.getUser();
-    this.userConnected = this.authService.getConnection();
-    this.loginForm = new FormGroup({
-      email: new FormControl(this.user.email),
-      password: new FormControl(this.user.password),
-    });
-  }
-
-  ngOnInit(): void {
     this.loginForm = this.formBuilder.group({
       email: [
         this.user.email,
@@ -40,6 +32,8 @@ export class LoginComponent implements OnInit {
       password: [this.user.password, [Validators.required]],
     });
   }
+
+  ngOnInit(): void {}
 
   onFindUser(form: FormGroup) {
     if (form.valid) {
