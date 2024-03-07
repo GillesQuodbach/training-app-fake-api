@@ -1,12 +1,14 @@
 import { Injectable } from '@angular/core';
 import { User } from '../model/user.model';
 import { Router } from '@angular/router';
+import * as CryptoJS from 'crypto-js';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthenticateService {
   constructor(private router: Router) {}
+  key = '123';
   private user: User = new User('', '', 'unknown');
   private users: User[] = [
     {
@@ -20,16 +22,29 @@ export class AuthenticateService {
       roles: ['USER'],
     },
   ];
+
+  private encrypt(txt: string): string {
+    return CryptoJS.AES.encrypt(txt, this.key).toString();
+  }
+  private decrypt(txtToDecrypt: string) {
+    return CryptoJS.AES.decrypt(txtToDecrypt, this.key).toString(
+      CryptoJS.enc.Utf8
+    );
+  }
+
   public userConnected: boolean = false;
   // gestion localStorage
   saveUser(user: User) {
-    localStorage.setItem('user', JSON.stringify(user));
+    localStorage.setItem('user', this.encrypt(JSON.stringify(user)));
   }
 
   getUser(): User {
     let user = localStorage.getItem('user');
-    if (user) return JSON.parse(user);
-    return this.user;
+    if (user) {
+      let decryptedUser = this.decrypt(user);
+      user = JSON.parse(decryptedUser);
+    }
+    return new User('', '', '');
   }
 
   getUsers() {

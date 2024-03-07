@@ -24,6 +24,7 @@ export class LoginComponent implements OnInit {
     private formBuilder: FormBuilder
   ) {
     this.user = this.authService.getUser();
+    this.userConnected = this.authService.getConnection();
     this.loginForm = this.formBuilder.group({
       email: [
         this.user.email,
