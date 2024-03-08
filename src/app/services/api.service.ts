@@ -4,6 +4,7 @@ import { Training } from '../model/training.model';
 import { User } from '../model/user.model';
 import { environment } from 'src/environments/environment';
 import { Observable } from 'rxjs';
+import { NewTraining } from '../model/newTraining';
 
 @Injectable({
   providedIn: 'root',
@@ -19,8 +20,12 @@ export class ApiService {
     return this.http.get<Training>(environment.host + '/trainings' + id);
   }
 
-  public addTraining(training: Training) {
-    return this.http.post<Training>(environment.host + '/trainings', training);
+  public addTraining(newTraining: NewTraining) {
+    console.log(newTraining);
+    return this.http.post<NewTraining>(
+      environment.host + '/trainings',
+      newTraining
+    );
   }
 
   public updateTraining(training: Training) {

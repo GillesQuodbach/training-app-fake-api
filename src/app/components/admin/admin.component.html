@@ -32,9 +32,49 @@
         </tr>
       </tbody>
     </table>
-    <a class="btn btn-warning"> Ajouter une formation </a>
+    <a class="btn btn-warning" (click)="toggleAddTrainingForm()">
+      Ajouter une formation
+    </a>
   </ng-container>
   <ng-template #loading>
     <div>Loading...</div>
   </ng-template>
+  <div *ngIf="showAddTrainingForm">
+    <div class="container">
+      <form [formGroup]="newTrainingForm">
+        <div class="mb-3">
+          <label class="form-control">Nom</label>
+          <input type="text" formControlName="name" class="form-control" />
+        </div>
+        <div class="mb-3">
+          <label>Description</label>
+          <input
+            formControlName="description"
+            class="form-control"
+            name="description"
+          />
+        </div>
+        <div class="mb-3">
+          <label class="form-control">Prix</label>
+          <input type="number" class="form-control" formControlName="price" />
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Quantité</label>
+          <input
+            type="number"
+            class="form-control"
+            formControlName="quantity"
+          />
+        </div>
+        <button
+          type="submit"
+          class="btn btn-primary"
+          [disabled]="!newTrainingForm"
+          (click)="saveNewTraining(newTrainingForm)"
+        >
+          Valider
+        </button>
+      </form>
+    </div>
+  </div>
 </div>
