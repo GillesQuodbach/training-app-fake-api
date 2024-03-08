@@ -72,7 +72,6 @@ export class AdminComponent implements OnInit {
 
   // Pré-remplissage du formulaire de mise a jour d'une formation
   updateAddFormTraining(training: Training) {
-    console.log('training to upadte', training);
     this.newTrainingForm.patchValue({
       name: training.name,
       description: training.description,
@@ -121,7 +120,6 @@ export class AdminComponent implements OnInit {
   // suppression d'une formation
   deleteOneTraining(id: number) {
     this.apiService.deleteTraining(id).subscribe(() => {
-      console.log('formation suppr');
       this.retrieveData();
     });
   }

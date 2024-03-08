@@ -21,7 +21,6 @@ export class ApiService {
   }
 
   public addTraining(newTraining: NewTraining) {
-    console.log(newTraining);
     return this.http.post<NewTraining>(
       environment.host + '/trainings',
       newTraining
@@ -36,7 +35,6 @@ export class ApiService {
   }
 
   public deleteTraining(id: number) {
-    console.log(environment.host + '/trainings/' + id);
     return this.http.delete<Training>(environment.host + '/trainings/' + id);
   }
 

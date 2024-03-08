@@ -1,8 +1,29 @@
 {
   "trainings": [
     {
+      "id": 1,
+      "name": "Java",
+      "description": "Formation Java SE 8 sur 5 jours",
+      "price": 1500,
+      "quantity": 1
+    },
+    {
+      "id": 2,
+      "name": "DotNet",
+      "description": "Formation DotNet 3 jours",
+      "price": 1000,
+      "quantity": 1
+    },
+    {
+      "id": 3,
+      "name": "Python",
+      "description": "Formation Python/Django 5 jours",
+      "price": 1500,
+      "quantity": 1
+    },
+    {
       "id": 4,
-      "name": "Phpdddddddddd",
+      "name": "Php",
       "description": "Initiation au Dev/Web avec php 4 jours",
       "price": 1300,
       "quantity": 1
@@ -20,41 +41,6 @@
       "description": "Formation Java Avancé/Bdd 3 jours",
       "price": 1200,
       "quantity": 1
-    },
-    {
-      "name": "dsdsd",
-      "description": "dsdsdsd",
-      "price": 10,
-      "quantity": 1,
-      "id": 8
-    },
-    {
-      "name": "test",
-      "description": "dfdfdf",
-      "price": 10,
-      "quantity": 10,
-      "id": 9
-    },
-    {
-      "name": "fdfdfdfd",
-      "description": "fdfdfdfdf",
-      "price": 101,
-      "quantity": 1,
-      "id": 10
-    },
-    {
-      "name": "Php",
-      "description": "Initiation au Dev/Web avec php 4 jours",
-      "price": 1300,
-      "quantity": 1,
-      "id": 11
-    },
-    {
-      "name": "Phpdddddddddd",
-      "description": "Initiation au Dev/Web avec php 4 jours",
-      "price": 1300,
-      "quantity": 1,
-      "id": 12
     }
   ],
   "users": [

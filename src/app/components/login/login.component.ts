@@ -37,10 +37,8 @@ export class LoginComponent implements OnInit {
   }
 
   loginUser() {
-    console.log(this.loginForm.value);
     const { email, password } = this.loginForm.value;
     this.apiService.getUserByEmail(email as string).subscribe((response) => {
-      console.log('response', response);
       this.user = new User(
         response[0].email,
         response[0].password,
@@ -56,20 +54,14 @@ export class LoginComponent implements OnInit {
         response[0].password == password &&
         response[0].roles.includes('ADMIN')
       ) {
-        console.log('everything match');
-        console.log('user is admin');
         this.authService.isAdmin();
         this.authService.userConnected = true;
-
         this.router.navigateByUrl('/admin');
       } else if (
         response.length > 0 &&
         response[0].password == password &&
         response[0].roles.includes('USER')
       ) {
-        console.log('everything match');
-        console.log('user is user');
-        this.authService.userConnected = true;
         this.router.navigateByUrl('/');
       } else {
         alert('wrong email or password');
