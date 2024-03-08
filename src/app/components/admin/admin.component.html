@@ -18,7 +18,9 @@
           <td>{{ training.description }}</td>
           <td>{{ training.price }}</td>
           <td>
-            <a class="btn btn-secondary"> Modifier </a>
+            <a class="btn btn-secondary" (click)="modifyTraining(training)">
+              Modifier
+            </a>
           </td>
 
           <td>

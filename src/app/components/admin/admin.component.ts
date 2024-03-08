@@ -37,6 +37,17 @@ export class AdminComponent implements OnInit {
     });
   }
 
+  modifyTraining(training: Training) {
+    console.log('training to upadte', training);
+    this.newTrainingForm.patchValue({
+      name: training.name,
+      description: training.description,
+      price: training.price,
+      quantity: training.quantity,
+    });
+    this.toggleAddTrainingForm();
+  }
+
   retrieveData() {
     this.apiService.getTrainings().subscribe({
       next: (data) => (this.listTrainings = data),
@@ -73,31 +84,11 @@ export class AdminComponent implements OnInit {
   deleteOneTraining(id: number) {
     this.apiService.deleteTraining(id).subscribe(() => {
       console.log('formation suppr');
-      this.apiService.getTrainings().subscribe({
-        next: (data) => (this.listTrainings = data),
-        error: (err) => (this.error = err.message),
-        complete: () => (this.error = null),
-      });
-    });
-  }
-
-  updateOneTraining(training: Training) {
-    this.apiService.updateTraining(training).subscribe(() => {
-      console.log('formation suppr');
-      this.apiService.getTrainings().subscribe({
-        next: (data) => (this.listTrainings = data),
-        error: (err) => (this.error = err.message),
-        complete: () => (this.error = null),
-      });
+      this.retrieveData();
     });
   }
 
   toggleAddTrainingForm() {
-    if (this.showAddTrainingForm === false) {
-      this.showAddTrainingForm = true;
-    } else if (this.showAddTrainingForm === true) {
-      return (this.showAddTrainingForm = false);
-    }
-    return this.showAddTrainingForm;
+    return (this.showAddTrainingForm = !this.showAddTrainingForm);
   }
 }
