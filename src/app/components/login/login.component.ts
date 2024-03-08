@@ -13,7 +13,13 @@ import { ApiService } from 'src/app/services/api.service';
 export class LoginComponent implements OnInit {
   user: User = this.authService.getUser();
   loginForm = this.fb.group({
-    email: ['', [Validators.required, Validators.email]],
+    email: [
+      '',
+      [
+        Validators.required,
+        Validators.pattern('^([a-zA-Z0-9._%-]+@[a-zA-Z0-9.-]+.[a-zA-Z]{2,})$'),
+      ],
+    ],
     password: ['', [Validators.required]],
   });
 

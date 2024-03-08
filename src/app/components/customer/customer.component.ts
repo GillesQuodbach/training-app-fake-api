@@ -41,7 +41,12 @@ export class CustomerComponent implements OnInit {
       ],
       email: [
         this.customer.email,
-        [Validators.required, Validators.pattern('[a-z0-9.@]*')],
+        [
+          Validators.required,
+          Validators.pattern(
+            '^([a-zA-Z0-9._%-]+@[a-zA-Z0-9.-]+.[a-zA-Z]{2,})$'
+          ),
+        ],
       ],
     });
   }
