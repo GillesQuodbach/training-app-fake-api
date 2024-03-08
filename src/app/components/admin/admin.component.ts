@@ -61,6 +61,15 @@ export class AdminComponent implements OnInit {
     }
   }
 
+  resetForm() {
+    this.newTrainingForm.patchValue({
+      name: '',
+      description: '',
+      price: '',
+      quantity: '',
+    });
+  }
+
   // Pré-remplissage du formulaire de mise a jour d'une formation
   updateAddFormTraining(training: Training) {
     console.log('training to upadte', training);
@@ -71,7 +80,7 @@ export class AdminComponent implements OnInit {
       quantity: training.quantity,
     });
     this.training = training;
-    this.toggleAddTrainingForm();
+    this.toggleUpdateTraining();
     this.isModify = true;
   }
 
@@ -118,7 +127,12 @@ export class AdminComponent implements OnInit {
   }
 
   // affichage du formulaire au clic
-  toggleAddTrainingForm() {
+  toggleAddTraining() {
+    this.resetForm();
+    return (this.showAddTrainingForm = !this.showAddTrainingForm);
+  }
+
+  toggleUpdateTraining() {
     return (this.showAddTrainingForm = !this.showAddTrainingForm);
   }
 }
