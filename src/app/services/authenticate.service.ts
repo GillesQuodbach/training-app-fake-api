@@ -56,5 +56,6 @@ export class AuthenticateService {
   userDeconnection() {
     localStorage.clear();
     this.userConnected = false;
+    this.user = new User('', '', ['']);
   }
 }

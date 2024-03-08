@@ -18,18 +18,14 @@
           <td>{{ training.description }}</td>
           <td>{{ training.price }}</td>
           <td>
-            <a class="btn btn-secondary" (click)="onAddToCart(training)">
-              Modifier
-            </a>
+            <a class="btn btn-secondary"> Modifier </a>
           </td>
 
           <td>
-            <a class="btn btn-primary" (click)="onAddToCart(training)">
-              Ajouter
-            </a>
+            <a class="btn btn-primary"> Ajouter </a>
           </td>
           <td>
-            <a class="btn btn-danger" (click)="onAddToCart(training)">
+            <a class="btn btn-danger" (click)="deleteOneTraining(training.id)">
               Supprimer
             </a>
           </td>

@@ -25,14 +25,15 @@ export class AdminComponent implements OnInit {
     });
   }
 
-  /**
-   * Méthode permettant l'ajout d'une formation au panier en utilisant le service dédié
-   * @param training
-   */
-  onAddToCart(training: Training) {
-    if (training.quantity > 0) {
-      this.cartService.addTraining(training);
-      this.router.navigateByUrl('cart');
-    }
+  deleteOneTraining(id: number) {
+    this.apiService.deleteTraining(id).subscribe(() => {
+      console.log('formation suppr');
+
+      this.apiService.getTrainings().subscribe({
+        next: (data) => (this.listTrainings = data),
+        error: (err) => (this.error = err.message),
+        complete: () => (this.error = null),
+      });
+    });
   }
 }
