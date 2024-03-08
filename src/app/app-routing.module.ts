@@ -8,6 +8,7 @@ import { OrderComponent } from './components/order/order.component';
 import { LoginComponent } from './components/login/login.component';
 import { AdminComponent } from './components/admin/admin.component';
 import { AdminGuard } from './components/admin.guard';
+import { UserGuard } from './components/user.guard';
 
 const routes: Routes = [
   { path: 'admin', component: AdminComponent, canActivate: [AdminGuard] },
@@ -15,7 +16,7 @@ const routes: Routes = [
   { path: 'trainings', component: TrainingsComponent },
   { path: 'cart', component: CartComponent },
   { path: 'order', component: OrderComponent },
-  { path: 'customer', component: CustomerComponent },
+  { path: 'customer', component: CustomerComponent, canActivate: [UserGuard] },
   { path: '', redirectTo: 'trainings', pathMatch: 'full' },
   { path: '404', component: NotFoundComponent },
   { path: '**', redirectTo: '/404' },
