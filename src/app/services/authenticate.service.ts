@@ -8,9 +8,17 @@ import { ApiService } from './api.service';
   providedIn: 'root',
 })
 export class AuthenticateService {
-  constructor(private router: Router, private apiService: ApiService) {}
+  public userConnected: boolean = false;
+  user: User = new User('', '', ['']);
+  constructor(private router: Router, private apiService: ApiService) {
+    this.user = this.getUser();
+    if (this.user.roles.includes('USER')) {
+      this.userConnected = true;
+    }
+  }
   key = '123';
-  private user: User = new User('', '', ['']);
+
+  ngOnInit(): void {}
 
   private encrypt(txt: string): string {
     return CryptoJS.AES.encrypt(txt, this.key).toString();
@@ -21,7 +29,6 @@ export class AuthenticateService {
     );
   }
 
-  public userConnected: boolean = false;
   // gestion localStorage
   saveUser(user: User) {
     localStorage.setItem('user', this.encrypt(JSON.stringify(user)));
@@ -33,7 +40,7 @@ export class AuthenticateService {
       let decryptedUser = this.decrypt(user);
       this.user = JSON.parse(decryptedUser);
     }
-    return new User('', '', ['']);
+    return this.user;
   }
 
   upDateUser(email: string, password: string, roles: string[]) {

@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ApiService } from './../../services/api.service';
 import { Training } from 'src/app/model/training.model';
-import { CartService } from 'src/app/services/cart.service';
-import { Router } from '@angular/router';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { NewTraining } from 'src/app/model/newTraining';
 
@@ -39,6 +37,7 @@ export class AdminComponent implements OnInit {
     });
   }
 
+  // Mise à jour d'une formation
   onUpdateTraining(form: FormGroup, training: Training) {
     if (form.valid) {
       training = new Training(
@@ -48,10 +47,8 @@ export class AdminComponent implements OnInit {
         form.value.price,
         form.value.quantity
       );
-      console.log('training from update', training);
       this.apiService.updateTraining(training).subscribe({
         next: (data: Training) => {
-          console.log('data from onUpDateTraining', data);
           this.retrieveData();
         },
         error: (err) => {
@@ -64,6 +61,7 @@ export class AdminComponent implements OnInit {
     }
   }
 
+  // Pré-remplissage du formulaire de mise a jour d'une formation
   updateAddFormTraining(training: Training) {
     console.log('training to upadte', training);
     this.newTrainingForm.patchValue({
@@ -77,6 +75,7 @@ export class AdminComponent implements OnInit {
     this.isModify = true;
   }
 
+  // fonction de mise a jour du tableau de formation
   retrieveData() {
     this.apiService.getTrainings().subscribe({
       next: (data) => (this.listTrainings = data),
@@ -85,6 +84,7 @@ export class AdminComponent implements OnInit {
     });
   }
 
+  // Ajout d'une nouvelle formation
   saveNewTraining(form: FormGroup) {
     if (form.valid) {
       this.newTraining = new NewTraining(
@@ -93,7 +93,6 @@ export class AdminComponent implements OnInit {
         form.value.price,
         form.value.quantity
       );
-
       this.apiService.addTraining(this.newTraining).subscribe({
         next: (data: NewTraining) => {
           this.newTraining = data;
@@ -110,6 +109,7 @@ export class AdminComponent implements OnInit {
     }
   }
 
+  // suppression d'une formation
   deleteOneTraining(id: number) {
     this.apiService.deleteTraining(id).subscribe(() => {
       console.log('formation suppr');
@@ -117,6 +117,7 @@ export class AdminComponent implements OnInit {
     });
   }
 
+  // affichage du formulaire au clic
   toggleAddTrainingForm() {
     return (this.showAddTrainingForm = !this.showAddTrainingForm);
   }

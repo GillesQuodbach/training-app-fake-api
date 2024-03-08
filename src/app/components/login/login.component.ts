@@ -2,12 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthenticateService } from 'src/app/services/authenticate.service';
 import { User } from 'src/app/model/user.model';
-import {
-  FormControl,
-  FormGroup,
-  FormBuilder,
-  Validators,
-} from '@angular/forms';
+import { FormBuilder, Validators } from '@angular/forms';
 import { ApiService } from 'src/app/services/api.service';
 
 @Component({
@@ -29,7 +24,11 @@ export class LoginComponent implements OnInit {
     private router: Router
   ) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    // récupérer le localStorage
+    // vérifier l'utilisateur
+    // si ok connection
+  }
 
   loginUser() {
     console.log(this.loginForm.value);
