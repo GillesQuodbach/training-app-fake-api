@@ -16,7 +16,9 @@ export class AdminComponent implements OnInit {
   listTrainings: Training[] | undefined;
   error: Error | null | undefined;
   showAddTrainingForm: boolean = false;
+  isModify: boolean = false;
   newTraining = new NewTraining('', '', 0, 0);
+  training = new Training(0, '', '', 0, 0);
   constructor(
     private apiService: ApiService,
     private formBuilder: FormBuilder
@@ -37,7 +39,32 @@ export class AdminComponent implements OnInit {
     });
   }
 
-  modifyTraining(training: Training) {
+  onUpdateTraining(form: FormGroup, training: Training) {
+    if (form.valid) {
+      training = new Training(
+        this.training.id,
+        form.value.name,
+        form.value.description,
+        form.value.price,
+        form.value.quantity
+      );
+      console.log('training from update', training);
+      this.apiService.updateTraining(training).subscribe({
+        next: (data: Training) => {
+          console.log('data from onUpDateTraining', data);
+          this.retrieveData();
+        },
+        error: (err) => {
+          this.error = err.message;
+        },
+        complete: () => {
+          this.error = null;
+        },
+      });
+    }
+  }
+
+  updateAddFormTraining(training: Training) {
     console.log('training to upadte', training);
     this.newTrainingForm.patchValue({
       name: training.name,
@@ -45,7 +72,9 @@ export class AdminComponent implements OnInit {
       price: training.price,
       quantity: training.quantity,
     });
+    this.training = training;
     this.toggleAddTrainingForm();
+    this.isModify = true;
   }
 
   retrieveData() {

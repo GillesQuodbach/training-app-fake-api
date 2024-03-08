@@ -29,7 +29,10 @@ export class ApiService {
   }
 
   public updateTraining(training: Training) {
-    return this.http.put<Training>(environment.host + '/trainings', training);
+    return this.http.put<Training>(
+      environment.host + '/trainings/' + training.id,
+      training
+    );
   }
 
   public deleteTraining(id: number) {

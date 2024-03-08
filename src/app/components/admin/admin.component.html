@@ -18,14 +18,14 @@
           <td>{{ training.description }}</td>
           <td>{{ training.price }}</td>
           <td>
-            <a class="btn btn-secondary" (click)="modifyTraining(training)">
+            <a
+              class="btn btn-secondary"
+              (click)="updateAddFormTraining(training)"
+            >
               Modifier
             </a>
           </td>
 
-          <td>
-            <a class="btn btn-primary"> Ajouter </a>
-          </td>
           <td>
             <a class="btn btn-danger" (click)="deleteOneTraining(training.id)">
               Supprimer
@@ -45,11 +45,11 @@
     <div class="container">
       <form [formGroup]="newTrainingForm">
         <div class="mb-3">
-          <label class="form-control">Nom</label>
+          <label class="form-label">Nom</label>
           <input type="text" formControlName="name" class="form-control" />
         </div>
         <div class="mb-3">
-          <label>Description</label>
+          <label class="form-label">Description</label>
           <input
             formControlName="description"
             class="form-control"
@@ -57,7 +57,7 @@
           />
         </div>
         <div class="mb-3">
-          <label class="form-control">Prix</label>
+          <label class="form-label">Prix</label>
           <input type="number" class="form-control" formControlName="price" />
         </div>
         <div class="mb-3">
@@ -69,12 +69,22 @@
           />
         </div>
         <button
+          *ngIf="!isModify"
           type="submit"
           class="btn btn-primary"
           [disabled]="!newTrainingForm"
           (click)="saveNewTraining(newTrainingForm)"
         >
           Valider
+        </button>
+        <button
+          *ngIf="isModify"
+          type="submit"
+          class="btn btn-primary"
+          [disabled]="!newTrainingForm"
+          (click)="onUpdateTraining(newTrainingForm, training)"
+        >
+          Modify
         </button>
       </form>
     </div>
